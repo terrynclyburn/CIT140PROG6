@@ -57,10 +57,12 @@
                 this.getData()  // load json data as page loads
             },
             methods: {    // ajax request
-                async getData() {
+                                async getData() {
                     const response = await fetch('tickets1.json')
                     const allTickets = await response.json()
-					tickets = allTickets.filter((item) => item.speed >= speedSelect); 
+                    this.tickets = allTickets.filter(item => 
+                        (item.actual_speed - item.posted_speed) > 25
+                    )
                     //tickets = data.filter( (item) => item.major == majSelect );     
                 },
             }
