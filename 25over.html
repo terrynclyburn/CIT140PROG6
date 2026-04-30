@@ -35,8 +35,7 @@
                   <th>MPH Over</th>
                   <th>Violator Sex</th>
               </tr>
-			<template v-for="ticket in tickets">
-			  <tr v-for="ticket in tickets" v-if="(ticket.actual_speed - ticket.posted_speed) >= 25">
+              <tr v-for="ticket in tickets">
                   <td>{{ticket.tid}}</td>
                   <td>{{ticket.stop_time}}</td>
                   <td>{{ticket.posted_speed}}</td>
@@ -44,7 +43,6 @@
                   <td>{{ticket.violator_sex}}</td>
               </tr>
          </table>
-</template>
 </div>   <!-- end gpaApp -->
 </div>   <!-- end class= 'container' -->
 
@@ -61,7 +59,8 @@
             methods: {    // ajax request
                 async getData() {
                     const response = await fetch('tickets1.json')
-                    this.tickets = await response.json()
+                    const allTickets = await response.json()
+					tickets = allTickets.filter((item) => item.speed >= speedSelect); 
                     //tickets = data.filter( (item) => item.major == majSelect );     
                 },
             }
